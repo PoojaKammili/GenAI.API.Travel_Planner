@@ -1,16 +1,19 @@
-## GenAI Travel Planner API
+# GenAI Travel Planner API
 
 A .NET 8 Web API that generates personalized travel plans using Ollama and Llama 3.2 based on destination, number of days, budget, and interests.
 
 ## Tech Stack
-.NET 8
-ASP.NET Core Web API
-C#
-Ollama
-Llama 3.2
-Swagger
+
+* .NET 8
+* ASP.NET Core Web API
+* C#
+* Ollama
+* Llama 3.2
+* Swagger
 
 ## Project Structure
+
+```text
 GenAI.API
 │
 ├── Controllers
@@ -27,8 +30,11 @@ GenAI.API
 │
 ├── Program.cs
 └── appsettings.json
+```
 
 ## API Flow
+
+```text
 Client
   ↓
 TravelController
@@ -44,43 +50,58 @@ AI Response
 TravelPlan
   ↓
 Client
+```
 
 ## API Endpoint
-Generate Travel Plan
 
-POST
-/api/Travel/plan
+**POST**
+
+`/api/Travel/plan`
+
+### Request
+
+```json
+{
+  "destination": "Vijayawada",
+  "days": 2,
+  "budget": 5000,
+  "interests": "Temples, Food"
+}
+```
+
+### Response
+
+```json
+{
+  "destination": "Vijayawada",
+  "days": [
+    {
+      "day": 1,
+      "places": [
+        "Place 1",
+        "Place 2"
+      ],
+      "activity": "Activity",
+      "food": "Food suggestion",
+      "estimatedCost": 2500
+    }
+  ],
+  "totalEstimatedCost": 2500
+}
+```
 
 ## How to Run
-1. Start Ollama
 
-Make sure Ollama is installed and the llama3.2 model is available.
+Make sure Ollama is installed and the `llama3.2` model is available.
 
+```bash
 ollama run llama3.2
-2. Run the API
+```
+
+Run the API:
+
+```bash
 dotnet run
+```
 
-The API can then be tested using Swagger or the Angular UI.
-
-## Key Responsibilities
-TravelController – Validates the request and handles the API endpoint.
-IAIService – Defines the AI service contract.
-OllamaAIService – Sends the prompt to Ollama and receives the AI response.
-TravelRequest – Represents user input.
-TravelPlan – Represents the structured travel plan.
-OllamaResponse – Represents the response received from Ollama.
-
-## Application Flow
-Angular UI
-    ↓
-.NET Web API
-    ↓
-Create AI Prompt
-    ↓
-Ollama / Llama 3.2
-    ↓
-JSON Response
-    ↓
-Deserialize to TravelPlan
-    ↓
-Return JSON to Angular
+The API can be tested using Swagger or the Angular UI.
